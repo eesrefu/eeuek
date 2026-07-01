@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "setup-store": "node --env-file=.env scripts/setup-store.mjs",
-    "list-stores": "node --env-file=.env scripts/list-stores.mjs"
+    "list-stores": "node --env-file=.env scripts/list-stores.mjs",
+    "fix-store": "node scripts/fix-store.mjs"
   },
   "dependencies": {
     "@google/genai": "^1.0.0",
