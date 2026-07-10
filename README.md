@@ -1,7 +1,25 @@
 # ❄️ KlimaSun
 
-**Erdinç Klima**'nın endüstriyel soğutma ve HVAC yapay zekâ arama asistanı.
+**Erdinç Klima**'nın iklimlendirme kataloğu, teklif merkezi ve yapay zekâ asistanı.
 Herkese açık, **ücretsiz**, üyeliksiz. Giriş, sayaç, paywall **yoktur**.
+
+## Katalog & Teklif Sepeti
+
+- **Kategoriler:** Bireysel / Ticari / Sanayi — her biri altında **Ürünler**,
+  **Yedek Parçalar** ve **Aksesuarlar** (`/katalog`, `/katalog/[segment]`).
+- **Marka sayfası:** Rittal pano klimaları, chiller, LCP ve orijinal parçalar
+  (`/marka/rittal`).
+- **Etiketleme & filtreleme:** kategori, tip, marka, etiket ve serbest metin
+  araması — URL query paramlarıyla paylaşılabilir filtre linkleri.
+- **Teklif sepeti:** ürünler sepete eklenir (`localStorage`), tek formla teklif
+  istenir (`/teklif-sepeti` → `POST /api/teklif`). KV tanımlıysa talepler
+  `teklif:*` anahtarlarında kalıcı saklanır ve referans no üretilir.
+- **AI ürün yönlendirme:** ana sayfadaki asistan müşteri ihtiyacını anlayıp
+  katalogdan ürün önerir (`POST /api/yonlendir`). `GEMINI_API_KEY` varsa Gemini
+  ile, yoksa (veya hata olursa) yerel anahtar kelime skorlamasıyla çalışır —
+  yani API anahtarı olmadan da site tam çalışır.
+- Ürün verisi tek dosyada: `lib/catalog.js` — yeni ürün eklemek için
+  `PRODUCTS` dizisine kayıt eklemek yeterli.
 
 Cevaplar yalnızca **yüklenen teknik dokümanlardan** (managed RAG) üretilir ve
 **kaynak/sayfa göstererek** sunulur. Bilinmeyen sorularda model uydurmaz.
