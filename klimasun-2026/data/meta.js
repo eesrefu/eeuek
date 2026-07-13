@@ -1,0 +1,1 @@
+window.KS_META={"brandTitle":"KLIMASUN","whatsapp":"905324246219","phone":"02163444819","phoneDisplay":"0216 344 48 19","waDisplay":"0532 424 6219","email":"info@klimasun.com.tr","productCount":9799,"categoryCount":159,"brandCount":226};

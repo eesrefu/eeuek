@@ -1,0 +1,4 @@
+{
+  "_bilgi": "Bu dosya ürün açıklamalarını (SEO/GEO/AEO için) özelleştirir. Anahtar = ürün slug'ı, değer = kısa açıklama metni. Buraya yazılan açıklama, ürün detay sayfasında 'Ürün Açıklaması' bölümünde ve JSON-LD/meta içinde statik olarak yer alır. Eklendikten sonra siteyi yeniden derlemek (apply_desc + make_js + seo_build) gerekir. Slug'ı data/fiyat-lookup.csv'den bulabilirsiniz.",
+  "mks-clima-mkp3033ch-pano-tipi-klima-3000w": "MKP3033CH, MKS Clima'nın 3.000 W net soğutma kapasiteli (A35-A35) üç fazlı 400 V panel montaj pano tipi klimasıdır. R134a gaz, Aluzinc gövde, filtresiz autopulente kondenser ve dijital termostat ile ±1 °C hassasiyette çalışır. OG-AG ve enerji dağıtım panoları için tasarlanmıştır. Stoktan teslim (kargo hariç), F-Gaz sertifikalı servis."
+}

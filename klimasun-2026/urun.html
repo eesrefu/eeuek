@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ürün — Klimasun</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div id="app-header"></div>
+<div class="wrap" style="padding-bottom:40px">
+  <div id="detail"></div>
+  <section class="blk" style="padding:36px 0 0"><div class="shead"><h2 style="font-size:22px">Benzer Ürünler</h2></div>
+    <div class="pgrid" id="related"></div></section>
+</div>
+<div id="app-footer"></div>
+
+<script src="data/meta.js"></script>
+<script src="data/categories.js"></script>
+<script src="data/brands.js"></script>
+<script src="data/products.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+KS.initChrome('urunler');
+const catName={}; KS_CATS.flat.forEach(c=>catName[c.slug]=c.name);
+const slug=KS.qp('u');
+const p=KS_PRODUCTS.find(x=>x.s===slug);
+const D=document.getElementById('detail');
+if(!p){ D.innerHTML='<div class="empty" style="margin-top:40px">Ürün bulunamadı. <a href="urunler.html">Ürünlere dön</a></div>'; }
+else{
+  document.title=p.n+' — Klimasun';
+  const st=(p.st||'').indexOf('Stok')===0?'<span class="badge stok">Stokta</span>':'<span class="badge tedarik">Sipariş ile Tedarik</span>';
+  const cats=(p.cats||[]).filter(c=>catName[c]).map(c=>`<a href="urunler.html?kategori=${c}" style="color:var(--yellow-d);font-weight:600">${KS.esc(catName[c])}</a>`).join(' · ');
+  const waMsg=encodeURIComponent('Merhaba, "'+p.n+'"'+(p.c?' ['+p.c+']':'')+' ürünü için teklif almak istiyorum.');
+  D.innerHTML=`
+  <div class="crumb"><a href="index.html">Ana Sayfa</a> / <a href="urunler.html">Ürünler</a> / ${KS.esc(p.n)}</div>
+  <div class="detail">
+    <div class="big"><img src="${KS.img(p.img||p.th)}" onerror="this.src=KS.ph" alt="${KS.esc(p.n)}"></div>
+    <div>
+      ${p.bn?`<div class="kick">${KS.esc(p.bn)}</div>`:''}
+      <h1>${KS.esc(p.n)}</h1>
+      <div class="dmeta">${p.c?`<span class="code">Kod: ${KS.esc(p.c)}</span>`:''}${st}</div>
+      <div class="dacts">
+        <button class="btn btn-y" onclick='KS.addToCart(${JSON.stringify({s:p.s,n:p.n,c:p.c,th:p.th,img:p.img})})'>+ Teklif Sepetine Ekle</button>
+        <a class="btn btn-d" target="_blank" href="https://wa.me/${KS_META.whatsapp}?text=${waMsg}">💬 WhatsApp'tan Teklif İste</a>
+        <a class="btn btn-o" href="tel:${KS_META.phone}">☎ ${KS_META.phoneDisplay}</a>
+      </div>
+      ${p.sd?`<div class="dsec"><h4>Özet</h4><p>${KS.esc(p.sd)}</p></div>`:''}
+      ${p.ld?`<div class="dsec"><h4>Ürün Açıklaması</h4><p>${KS.esc(p.ld)}</p></div>`:''}
+      ${cats?`<div class="dsec"><h4>Kategoriler</h4><p>${cats}</p></div>`:''}
+      <div class="dsec"><h4>Teklif & Sipariş</h4><p>Tüm satışlarımız kurumsal e-faturalıdır. Fiyat ve stok bilgisi için teklif sepetine ekleyip WhatsApp veya e-posta ile bize ulaşın.</p></div>
+    </div>
+  </div>`;
+  // related: same brand or category
+  const rel=KS_PRODUCTS.filter(x=>x.s!==p.s && x.img && (x.b===p.b || (x.cats||[]).some(c=>(p.cats||[]).includes(c)))).slice(0,8);
+  document.getElementById('related').innerHTML=rel.map(KS.card).join('')||'<div class="empty" style="grid-column:1/-1">—</div>';
+}
+</script>
+</body>
+</html>
