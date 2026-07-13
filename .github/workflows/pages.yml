@@ -1,8 +1,15 @@
 name: Deploy to GitHub Pages
 
+# klimasun-2026 statik katalog sitesini GitHub Pages'te yayınlar.
+# Pages'in 1 GB site limiti için ürün görselleri yayın sırasında optimize
+# edilir (depodaki orijinaller değişmez).
+
 on:
   push:
-    branches: ["main", "claude/compassionate-keller-zp8qte"]
+    branches: ["claude/klimasun-catalog-design-v7zx1r", "main"]
+    paths:
+      - "klimasun-2026/**"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -22,9 +29,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Siteyi hazırla ve görselleri optimize et
+        run: |
+          sudo apt-get update -q && sudo apt-get install -yq jpegoptim imagemagick
+          mkdir -p _site
+          rsync -a klimasun-2026/ _site/
+          echo "Optimizasyon öncesi:" && du -sh _site
+          # Büyük JPEG'leri 1400px'e küçült + %80 kaliteye sıkıştır (sadece yayın kopyası)
+          find _site/assets/products -type f \( -iname '*.jpg' -o -iname '*.jpeg' \) -size +120k -print0 \
+            | xargs -0 -r -P 4 -n 20 mogrify -resize '1400x1400>' -quality 80
+          find _site/assets/products -type f \( -iname '*.jpg' -o -iname '*.jpeg' \) -print0 \
+            | xargs -0 -r -P 4 -n 50 jpegoptim --max=80 --strip-all --quiet || true
+          echo "Optimizasyon sonrası:" && du -sh _site
+          # 1 GB Pages limiti kontrolü
+          SIZE=$(du -sm _site | cut -f1)
+          echo "Site boyutu: ${SIZE} MB"
+          if [ "$SIZE" -gt 1000 ]; then
+            echo "Hâlâ 1 GB üzerinde — PDF dokümanlar yayın dışı bırakılıyor (katalog etkilenmez)."
+            rm -rf _site/assets/docs
+            du -sh _site
+          fi
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: "."
+          path: "_site"
+
       - id: deployment
         uses: actions/deploy-pages@v4
