@@ -53,7 +53,7 @@ function renderSidebar(){
  const el=document.getElementById('side');
  if(!state.dom){
   let h='<h4>Alan Seçin</h4><p style="font-size:12.5px;color:var(--muted);margin:0 0 12px">Önce bir ürün dünyası seçin; filtreler o alana göre gelir.</p>';
-  DOMS.forEach(d=>{if(!domCount[d.s])return;h+='<a class="dombtn" data-act="dom" data-v="'+d.s+'"><span>'+d.i+' '+esc(d.n)+'</span><b>'+domCount[d.s]+'</b></a>';});
+  const _dm=countMap(null,p=>[..._pdoms(p)]);DOMS.forEach(d=>{const _n=_dm.get(d.s)||0;if(!_n)return;h+='<a class="dombtn" data-act="dom" data-v="'+d.s+'"><span>'+d.i+' '+esc(d.n)+'</span><b>'+_n+'</b></a>';});
   el.innerHTML=h;return;}
  let h='<a class="domexit" data-act="domclear">◀ Tüm alanlar</a>';
  h+='<div class="domnow">'+esc(DOMNAME[state.dom]||state.dom)+'</div>';
