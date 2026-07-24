@@ -253,10 +253,76 @@ a:hover {
   box-shadow: var(--shadow);
 }
 .answer-body {
-  white-space: pre-wrap;
   font-size: 1.04rem;
   color: var(--text);
+  line-height: 1.7;
 }
+/* Markdown öğeleri (asistan cevabı) */
+.answer-body > :first-child { margin-top: 0; }
+.answer-body > :last-child { margin-bottom: 0; }
+.answer-body p { margin: 0 0 14px; }
+.answer-body h1,
+.answer-body h2,
+.answer-body h3,
+.answer-body h4 {
+  color: #fff;
+  line-height: 1.3;
+  margin: 26px 0 10px;
+  font-weight: 700;
+}
+.answer-body h1 { font-size: 1.5rem; }
+.answer-body h2 { font-size: 1.28rem; }
+.answer-body h3 {
+  font-size: 1.1rem;
+  color: var(--cyan);
+}
+.answer-body h4 { font-size: 1rem; }
+.answer-body ul,
+.answer-body ol { margin: 0 0 14px; padding-left: 22px; }
+.answer-body li { margin: 6px 0; }
+.answer-body li::marker { color: var(--cyan); }
+.answer-body strong { color: #fff; font-weight: 700; }
+.answer-body a { color: var(--cyan); text-decoration: underline; }
+.answer-body code {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 0.9em;
+}
+.answer-body pre {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 0 0 14px;
+}
+.answer-body pre code { background: none; border: none; padding: 0; }
+.answer-body blockquote {
+  margin: 0 0 14px;
+  padding: 4px 16px;
+  border-left: 3px solid var(--cyan);
+  color: var(--muted);
+}
+.answer-body hr { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+.answer-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  display: block;
+  overflow-x: auto;
+}
+.answer-body th,
+.answer-body td {
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  text-align: left;
+}
+.answer-body th { background: var(--panel-2); color: #fff; }
+.answer-body .katex { font-size: 1.05em; }
+.answer-body .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
 .answer-meta {
   display: flex;
   align-items: center;

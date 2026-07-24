@@ -1,0 +1,10 @@
+# Cloudflare Workers — YEREL geliştirme gizli değerleri.
+# Bu dosyayı `.dev.vars` olarak kopyalayıp doldurun (`.dev.vars` commit EDİLMEZ).
+# Production'da bunları `npx wrangler secret put <AD>` ile ekleyin.
+
+GEMINI_API_KEY=
+GEMINI_FILE_SEARCH_STORE=
+
+# Opsiyonel kalıcı depo (Upstash Redis / Vercel KV REST)
+KV_REST_API_URL=
+KV_REST_API_TOKEN=

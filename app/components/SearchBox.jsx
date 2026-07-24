@@ -40,8 +40,8 @@ export default function SearchBox() {
   }
 
   return (
-    <form className="search-wrap" onSubmit={submit}>
-      <div className="search">
+    <form className="ks-ask" onSubmit={submit}>
+      <div className="ks-ask-box">
         <textarea
           rows={1}
           value={question}
@@ -50,16 +50,18 @@ export default function SearchBox() {
           placeholder="Örn: Pano kliması seçerken nelere dikkat edilmeli?"
           aria-label="Soru"
           maxLength={500}
-          autoFocus
+          className="ks-ask-input"
         />
-        <button type="submit" className="btn btn-primary" disabled={loading || !question.trim()}>
-          {loading ? <span className="spinner" aria-hidden="true" /> : 'Sor'}
+        <button type="submit" className="ks-ask-btn" disabled={loading || !question.trim()}>
+          {loading ? <span className="ks-spin" aria-hidden="true" /> : 'SOR'}
         </button>
       </div>
-      <div className="error" role="alert">
-        {error}
-      </div>
-      <p className="hint">
+      {error && (
+        <div className="ks-ask-error" role="alert">
+          {error}
+        </div>
+      )}
+      <p className="ks-ask-hint">
         Cevaplar yalnızca yüklenen teknik dokümanlara dayanır ve kaynak gösterir.
       </p>
     </form>

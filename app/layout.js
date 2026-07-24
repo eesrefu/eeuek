@@ -1,41 +1,39 @@
-import './globals.css';
-import Link from 'next/link';
-
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://klimasun.vercel.app';
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'KlimaSun — Endüstriyel Soğutma & HVAC AI Asistanı',
+    default: 'KlimaSun — Endüstriyel İklimlendirme Merkezi',
     template: '%s — KlimaSun',
   },
   description:
-    "KlimaSun, Erdinç Klima'nın endüstriyel soğutma ve HVAC asistanı. F-Gaz, evaporatif soğutma, " +
-    'pano kliması, chiller ve daha fazlası hakkında kaynak göstererek, ücretsiz cevaplar.',
+    "Klimasun endüstriyel iklimlendirme merkezi: pano kliması, chiller, evaporatif soğutma ve " +
+    'yedek parçada 9.799+ ürün. Sıfır, 2.el, takas ve tamir seçenekleriyle aynı gün teklif.',
   keywords: [
-    'HVAC',
-    'endüstriyel soğutma',
-    'F-Gaz',
-    'evaporatif soğutma',
+    'endüstriyel iklimlendirme',
     'pano kliması',
     'chiller',
+    'evaporatif soğutma',
+    'yedek parça',
+    'HVAC',
+    'F-Gaz',
+    'Klimasun',
     'Erdinç Klima',
-    'KlimaSun',
   ],
-  applicationName: 'KlimaSun',
+  applicationName: 'Klimasun',
   openGraph: {
     type: 'website',
-    siteName: 'KlimaSun',
+    siteName: 'Klimasun',
     locale: 'tr_TR',
     url: SITE_URL,
-    title: 'KlimaSun — Endüstriyel Soğutma & HVAC AI Asistanı',
+    title: 'KlimaSun — Endüstriyel İklimlendirme Merkezi',
     description:
-      'F-Gaz, evaporatif soğutma, pano kliması, chiller ve daha fazlası hakkında kaynak göstererek ücretsiz cevaplar.',
+      'Pano kliması, chiller, evaporatif soğutma ve yedek parçada 9.799+ ürün. Aynı gün hızlı teklif.',
   },
   twitter: {
     card: 'summary',
-    title: 'KlimaSun — Endüstriyel Soğutma & HVAC AI Asistanı',
-    description: 'HVAC ve endüstriyel soğutma sorularınıza kaynaklı, ücretsiz cevaplar.',
+    title: 'KlimaSun — Endüstriyel İklimlendirme Merkezi',
+    description: 'Endüstriyel iklimlendirme parçalarında zor bulunanı biz tedarik ediyoruz.',
   },
   robots: {
     index: true,
@@ -46,25 +44,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="tr">
-      <body>
-        <header className="site-header">
-          <div className="container">
-            <Link href="/" className="brand">
-              <span className="logo">❄️</span>
-              <span>
-                Klima<span className="accent">Sun</span>
-              </span>
-            </Link>
-            <span className="tagline">Erdinç Klima · Endüstriyel Soğutma & HVAC</span>
-          </div>
-        </header>
-        <main>{children}</main>
-        <footer className="site-footer">
-          <div className="container">
-            KlimaSun · Erdinç Klima endüstriyel soğutma & HVAC asistanı · Ücretsiz ve herkese açık
-          </div>
-        </footer>
-      </body>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

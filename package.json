@@ -4,17 +4,30 @@
   "private": true,
   "description": "KlimaSun — Erdinç Klima endüstriyel soğutma & HVAC AI arama asistanı",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/build-catalog.mjs && next dev",
+    "build": "node scripts/build-catalog.mjs && next build",
     "start": "next start",
     "lint": "next lint",
-    "setup-store": "node --env-file=.env scripts/setup-store.mjs"
+    "setup-store": "node --env-file=.env scripts/setup-store.mjs",
+    "preview": "node scripts/build-catalog.mjs && opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "node scripts/build-catalog.mjs && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-build": "node scripts/build-catalog.mjs && opennextjs-cloudflare build",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@google/genai": "^1.0.0",
+    "katex": "^0.16.47",
     "next": "^15.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-markdown": "^9.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "@opennextjs/cloudflare": "^1.3.0",
+    "wrangler": "^4.20.0"
   },
   "engines": {
     "node": ">=20.6.0"

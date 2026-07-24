@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "klimasun",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-03-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // Soru-cevap kalıcı deposu (AI asistanı). lib/store.js önce bu binding'i kullanır;
+  // yoksa Upstash/Vercel KV REST'e, o da yoksa süreç-içi belleğe düşer.
+  "kv_namespaces": [
+    { "binding": "QA_KV", "id": "9babadc3d9354e578e69e2121a9b9461" }
+  ],
+  "vars": {
+    // Canonical, sitemap ve JSON-LD adresleri bu değerden üretilir.
+    "NEXT_PUBLIC_SITE_URL": "https://klimasun.com",
+    // File Search Store adı gizli değildir (erişim için GEMINI_API_KEY gerekir),
+    // bu yüzden normal değişken olarak tutulur. Anahtar/hesap değişince
+    // index-docs iş akışını çalıştırıp buradaki adı güncelleyin.
+    "GEMINI_FILE_SEARCH_STORE": "fileSearchStores/klimasundokumanlar-8vian73jqkw1"
+  }
+  // Gizli değerler (GEMINI_API_KEY, KV_REST_API_URL, KV_REST_API_TOKEN) "vars"
+  // içine YAZILMAZ. Bunlar Deploy iş akışında repo secret'larından
+  // "wrangler secret put ..." ile yüklenir; yerelde .dev.vars dosyasına konur.
+}

@@ -100,14 +100,15 @@ KS.updateCartUI=updateCartUI;
 /* ---------- product card ---------- */
 KS.card=function(p){
   const st=p.st&&p.st.indexOf('Stok')===0?'<span class="badge stok">Stokta</span>':'<span class="badge tedarik">Tedarik</span>';
+  const u=(p.pc&&p.pc.indexOf('--')>0)?('/urun/'+p.pc.replace('--','/')+'/'+encodeURIComponent(p.s)+'.html'):('urun.html?u='+encodeURIComponent(p.s));
   return `<div class="pcard">
-    <a class="imgbox" href="urun.html?u=${encodeURIComponent(p.s)}"><img loading="lazy" src="${KS.img(p.th||p.img)}" onerror="this.src=KS.ph" alt="${KS.esc(p.n)}"></a>
+    <a class="imgbox" href="${u}"><img loading="lazy" src="${KS.img(p.th||p.img)}" onerror="this.src=KS.ph" alt="${KS.esc(p.n)}"></a>
     <div class="body">
       <div class="code">${KS.esc(p.c||'')}</div>
-      <a class="pn" href="urun.html?u=${encodeURIComponent(p.s)}">${KS.esc(p.n)}</a>
+      <a class="pn" href="${u}">${KS.esc(p.n)}</a>
       <div class="meta"><span class="brand">${KS.esc(p.bn||'')}</span>${st}</div>
       <div class="acts"><button class="btn btn-y btn-sm" onclick='KS.addToCart(${JSON.stringify({s:p.s,n:p.n,c:p.c,th:p.th,img:p.img})})'>+ Sepete Ekle</button>
-      <a class="btn btn-o btn-sm" href="urun.html?u=${encodeURIComponent(p.s)}">İncele</a></div>
+      <a class="btn btn-o btn-sm" href="${u}">İncele</a></div>
     </div></div>`;
 };
 KS.qp=function(k){return new URLSearchParams(location.search).get(k)||'';};

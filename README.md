@@ -6,6 +6,12 @@ Herkese açık, **ücretsiz**, üyeliksiz. Giriş, sayaç, paywall **yoktur**.
 Cevaplar yalnızca **yüklenen teknik dokümanlardan** (managed RAG) üretilir ve
 **kaynak/sayfa göstererek** sunulur. Bilinmeyen sorularda model uydurmaz.
 
+> ℹ️ **Çalışma/dağıtım akışı:** Proje **Cloudflare Workers** üzerinde çalışır ve
+> `main` dalına push ile **GitHub Actions** üzerinden otomatik dağıtılır. Ortak
+> çalışma, yerel kurulum, doküman ekleme ve secret'lar için **[KATKI.md](./KATKI.md)**
+> dosyasına bakın. (Aşağıdaki bölümlerden bir kısmı ilk şablonun Vercel kurulumunu
+> anlatır; güncel dağıtım Cloudflare'dir.)
+
 - **Next.js (App Router)** + **Vercel**
 - **Gemini API** — `gemini-2.5-flash` (free tier yeterli)
 - **Gemini File Search** aracı ile managed RAG

@@ -16,6 +16,12 @@ build/
 # vercel
 .vercel
 
+# cloudflare / opennext
+.open-next/
+.wrangler/
+.dev.vars
+cloudflare-env.d.ts
+
 # misc
 .DS_Store
 *.log
@@ -35,3 +41,15 @@ dokumanlar/*
 !dokumanlar/**/*.PDF
 !dokumanlar/**/*.docx
 !dokumanlar/**/*.DOCX
+
+# Üretilen katalog verisi (scripts/build-catalog.mjs üretir)
+/public/veri/
+/public/gorseller/
+/lib/catalog-slugs.json
+/lib/category-slugs.json
+
+# build-catalog.mjs tarafından üretilen dosyalar
+public/veri/
+public/gorseller/
+lib/catalog-slugs.json
+lib/category-slugs.json

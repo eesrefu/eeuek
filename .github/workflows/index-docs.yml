@@ -1,0 +1,104 @@
+# Gemini File Search — belgeleri indeksle
+#
+# Belge klasörlerindeki (dokumanlar/ + klimasun-2026/assets/docs/) tüm PDF/DOCX'leri
+# bir Gemini File Search Store'a yükler. GEMINI_API_KEY repo secret'ından okunur —
+# anahtar yalnızca bu çalışma içinde kullanılır, hiçbir yere sızmaz.
+#
+# Çalıştırma: Actions → "Gemini File Search — belgeleri indeksle" → Run workflow.
+# Çıkan store adı (GEMINI_FILE_SEARCH_STORE=...) iş özetinde (Summary) gösterilir;
+# o değeri repo secret olarak GEMINI_FILE_SEARCH_STORE'a ekleyip Deploy workflow'unu
+# tekrar çalıştırın — böylece canlı asistan bu belgelerden cevap üretir.
+#
+# Gerekli secret: GEMINI_API_KEY
+# İsteğe bağlı input: reuse_store — var olan bir store'a eklemek için store adı.
+
+name: Gemini File Search — belgeleri indeksle
+
+on:
+  workflow_dispatch:
+    inputs:
+      reuse_store:
+        description: 'Var olan store adı (fileSearchStores/...). Boş bırakılırsa yenisi oluşturulur.'
+        required: false
+        default: ''
+  # workflow_dispatch düğmesi yalnızca varsayılan dalda görünür. Bu dalda
+  # elle çalıştırabilmek için: commit mesajına [index-docs] yazıp push edin.
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: gemini-index-docs
+  cancel-in-progress: false
+
+jobs:
+  index:
+    # Push'ta yalnızca commit mesajı [index-docs] içeriyorsa çalışır;
+    # böylece her push'ta yeni store oluşmaz.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.head_commit.message, '[index-docs]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Kodu çek
+        uses: actions/checkout@v4
+
+      - name: Node 22 kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Bağımlılıkları kur
+        run: npm ci
+
+      - name: Gemini anahtarı kontrolü
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::GEMINI_API_KEY repo secret'ı tanımlı değil. Settings → Secrets and variables → Actions altından ekleyin."
+            exit 1
+          fi
+
+      - name: Belgeleri indeksle
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          REUSE_INPUT: ${{ github.event.inputs.reuse_store }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          set -o pipefail
+          # Store hedefi: workflow_dispatch input'u öncelikli; yoksa wrangler.jsonc'taki
+          # mevcut store (böylece push tetiklemesi var olan store'a ekler, yenisini açmaz).
+          STORE_TARGET="$REUSE_INPUT"
+          if [ -z "$STORE_TARGET" ]; then
+            STORE_TARGET=$(grep -oE 'fileSearchStores/[A-Za-z0-9_-]+' wrangler.jsonc | head -1 || true)
+          fi
+          export GEMINI_FILE_SEARCH_STORE="$STORE_TARGET"
+          # Commit mesajında [rebuild-store] varsa: eski store silinip temiz yeni store kurulur.
+          if printf '%s' "$COMMIT_MSG" | grep -q '\[rebuild-store\]'; then
+            export REBUILD=1
+            echo "REBUILD modu: eski store (${STORE_TARGET:-yok}) silinip yenisi kurulacak."
+          else
+            echo "Hedef store: ${STORE_TARGET:-<yeni oluşturulacak>}"
+          fi
+          node scripts/setup-store.mjs | tee store-output.txt
+          STORE=$(grep '^GEMINI_FILE_SEARCH_STORE=' store-output.txt | tail -1 | cut -d= -f2-)
+          {
+            echo "## Gemini File Search — sonuç"
+            echo ""
+            if [ -n "$STORE" ]; then
+              echo "Store adı:"
+              echo ""
+              echo '```'
+              echo "GEMINI_FILE_SEARCH_STORE=$STORE"
+              echo '```'
+              echo ""
+              echo "Bu değeri **Settings → Secrets and variables → Actions** altında"
+              echo "\`GEMINI_FILE_SEARCH_STORE\` secret'ı olarak ekleyin, sonra Deploy"
+              echo "workflow'unu çalıştırın."
+            else
+              echo "Store adı yakalanamadı — iş kayıtlarına (log) bakın."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

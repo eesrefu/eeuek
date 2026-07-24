@@ -62,7 +62,8 @@ KS.updateCartUI=updateCartUI;
 KS.applyPrices=function(root){(root||document).querySelectorAll('[data-pslug]').forEach(el=>{
   const pr=PRICES[el.getAttribute('data-pslug')];
   if(pr){el.textContent=pr;el.style.display='';}else{el.style.display='none';}});};
-KS.card=function(p){const u='urun/'+encodeURIComponent(p.s)+'.html';
+KS.purl=function(p){var base=(p.pc&&p.pc.indexOf('--')>0)?(p.pc.replace('--','/')+'/'):'';return '/urun/'+base+encodeURIComponent(p.s)+'.html';};
+KS.card=function(p){const u=KS.purl(p);
   const tags=KS.tagsOf(p).slice(0,3).map(t=>`<span class="tg">${KS.esc(t)}</span>`).join('');
   return `<div class="pcard"><a class="imgbox" href="${u}"><img loading="lazy" src="${KS.img(p.th||p.img)}" onerror="this.src=KS.ph" alt="${KS.esc(p.n)}"></a>
     <div class="body"><div class="code">${KS.esc(p.c||'')}</div>
