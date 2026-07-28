@@ -76,10 +76,22 @@ export default function RootLayout({ children }) {
                 Klima<span className="accent">Sun</span>
               </span>
             </Link>
-            <a href="tel:+905059598770" className="header-phone" aria-label="Telefonla ara">
-              <span className="phone-ico">📞</span>
-              <span className="phone-num">0505 959 87 70</span>
-            </a>
+            <div className="header-contact">
+              <a
+                href="https://wa.me/905059598770"
+                className="header-btn wa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp'tan yaz"
+              >
+                <span className="btn-ico">💬</span>
+                <span className="btn-num">WhatsApp</span>
+              </a>
+              <a href="tel:+905059598770" className="header-btn phone" aria-label="Telefonla ara">
+                <span className="btn-ico">📞</span>
+                <span className="btn-num">0505 959 87 70</span>
+              </a>
+            </div>
           </div>
         </header>
         <main>{children}</main>
@@ -89,6 +101,10 @@ export default function RootLayout({ children }) {
               <strong>KlimaSun.com</strong> · Erdinç Klima endüstriyel soğutma &amp; HVAC asistanı
             </div>
             <div className="footer-contact">
+              <a href="https://wa.me/905059598770" target="_blank" rel="noopener noreferrer">
+                💬 WhatsApp: 0505 959 87 70
+              </a>
+              <span className="dot">·</span>
               <a href="tel:+905059598770">📞 0505 959 87 70</a>
               <span className="dot">·</span>
               <a href="https://klimasun.com">🌐 KlimaSun.com</a>

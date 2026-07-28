@@ -96,24 +96,36 @@ a:hover {
   color: var(--muted);
   font-size: 0.85rem;
 }
-.header-phone {
-  display: inline-flex;
+.header-contact {
+  display: flex;
   align-items: center;
   gap: 8px;
+}
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   padding: 8px 14px;
   border-radius: 999px;
-  background: var(--cyan-soft);
-  border: 1px solid var(--cyan-deep);
-  color: var(--cyan);
   font-weight: 700;
   font-size: 0.95rem;
   white-space: nowrap;
 }
-.header-phone:hover {
+.header-btn:hover {
   text-decoration: none;
-  background: rgba(34, 211, 238, 0.2);
+  filter: brightness(1.08);
 }
-.header-phone .phone-ico {
+.header-btn.phone {
+  background: var(--cyan-soft);
+  border: 1px solid var(--cyan-deep);
+  color: var(--cyan);
+}
+.header-btn.wa {
+  background: #25d366;
+  border: 1px solid #1ebe5a;
+  color: #04121a;
+}
+.header-btn .btn-ico {
   font-size: 0.9rem;
 }
 
@@ -402,8 +414,17 @@ a:hover {
   .btn-primary {
     width: 100%;
   }
-  .header-phone {
+  .header-contact {
+    gap: 6px;
+  }
+  .header-btn {
     padding: 7px 11px;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    gap: 5px;
+  }
+}
+@media (max-width: 420px) {
+  .header-btn.phone .btn-num {
+    display: none;
   }
 }
