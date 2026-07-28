@@ -44,9 +44,30 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'KlimaSun — Erdinç Klima',
+    url: SITE_URL,
+    telephone: '+90 505 959 87 70',
+    description:
+      'Endüstriyel soğutma ve HVAC yapay zekâ asistanı; F-Gaz, evaporatif soğutma, pano kliması, chiller.',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+90-505-959-87-70',
+      contactType: 'customer service',
+      areaServed: 'TR',
+      availableLanguage: 'Turkish',
+    },
+  };
+
   return (
     <html lang="tr">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <header className="site-header">
           <div className="container">
             <Link href="/" className="brand">
@@ -55,13 +76,24 @@ export default function RootLayout({ children }) {
                 Klima<span className="accent">Sun</span>
               </span>
             </Link>
-            <span className="tagline">Erdinç Klima · Endüstriyel Soğutma & HVAC</span>
+            <a href="tel:+905059598770" className="header-phone" aria-label="Telefonla ara">
+              <span className="phone-ico">📞</span>
+              <span className="phone-num">0505 959 87 70</span>
+            </a>
           </div>
         </header>
         <main>{children}</main>
         <footer className="site-footer">
           <div className="container">
-            KlimaSun · Erdinç Klima endüstriyel soğutma & HVAC asistanı · Ücretsiz ve herkese açık
+            <div className="footer-brand">
+              <strong>KlimaSun.com</strong> · Erdinç Klima endüstriyel soğutma &amp; HVAC asistanı
+            </div>
+            <div className="footer-contact">
+              <a href="tel:+905059598770">📞 0505 959 87 70</a>
+              <span className="dot">·</span>
+              <a href="https://klimasun.com">🌐 KlimaSun.com</a>
+            </div>
+            <div className="footer-note">Ücretsiz ve herkese açık</div>
           </div>
         </footer>
       </body>

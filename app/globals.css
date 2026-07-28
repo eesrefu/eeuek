@@ -96,6 +96,26 @@ a:hover {
   color: var(--muted);
   font-size: 0.85rem;
 }
+.header-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--cyan-soft);
+  border: 1px solid var(--cyan-deep);
+  color: var(--cyan);
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+.header-phone:hover {
+  text-decoration: none;
+  background: rgba(34, 211, 238, 0.2);
+}
+.header-phone .phone-ico {
+  font-size: 0.9rem;
+}
 
 /* Hero */
 .hero {
@@ -348,6 +368,29 @@ a:hover {
   padding: 26px 0;
   text-align: center;
 }
+.footer-brand {
+  color: var(--muted);
+}
+.footer-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 8px 0 6px;
+  font-size: 0.95rem;
+}
+.footer-contact a {
+  color: var(--cyan);
+  font-weight: 700;
+}
+.footer-contact .dot {
+  color: var(--muted-2);
+}
+.footer-note {
+  color: var(--muted-2);
+  font-size: 0.8rem;
+}
 
 @media (max-width: 600px) {
   .q-grid {
@@ -359,7 +402,8 @@ a:hover {
   .btn-primary {
     width: 100%;
   }
-  .tagline {
-    display: none;
+  .header-phone {
+    padding: 7px 11px;
+    font-size: 0.85rem;
   }
 }
