@@ -39,6 +39,8 @@ export default function ProductGrid({ items }) {
         {visible.map(([slug, code, name, brand, , stok, th, path, price]) => {
           const sale = Array.isArray(price) ? price[0] : 0;
           const list = Array.isArray(price) ? price[1] : 0;
+          const cur = Array.isArray(price) ? price[2] || 'EUR' : 'EUR';
+          const kdv = Array.isArray(price) ? Boolean(price[3]) : false;
           const off = discountPct(list, sale);
           return (
           <div className="ks-prod-card" key={slug}>
@@ -63,8 +65,8 @@ export default function ProductGrid({ items }) {
               </div>
               {sale ? (
                 <div className="ks-price">
-                  {list && off ? <span className="ks-price-old">{money(list)}</span> : null}
-                  <span className="ks-price-new">{money(sale)}</span>
+                  {list && off ? <span className="ks-price-old">{money(list, cur)}</span> : null}
+                  <span className="ks-price-new">{money(sale, cur)}{kdv ? ' + KDV' : ''}</span>
                   {off ? <span className="ks-price-off">%{off} indirim</span> : null}
                 </div>
               ) : null}

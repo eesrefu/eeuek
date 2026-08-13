@@ -49,7 +49,7 @@ const asItem = (p) => [
   p.st === 'Stokta' ? 1 : 0,
   gorsel(p.th),
   pcPath(p),
-  p.prc ? [p.prc.sale, p.prc.list] : 0,
+  p.prc ? [p.prc.sale, p.prc.list || 0, p.prc.cur || 'EUR', p.prc.kdv ? 1 : 0] : 0,
 ];
 const items = products.map(asItem);
 
@@ -124,6 +124,7 @@ for (const p of products) {
     catSlug: catName.has(p.pc) ? p.pc : catName.has(p.cats[0]) ? p.cats[0] : '',
     cond: isSecondHand(p) ? '2.El' : 'Sıfır',
     stok: p.st === 'Stokta' ? 1 : 0,
+    sq: p.sq || 0,
     prc: p.prc || null,
     rich: p.rich || null,
     mt: p.mt || '',

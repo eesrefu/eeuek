@@ -65,6 +65,9 @@ export default function ProductDetail({ product }) {
           <div className="ks-buy-tags">
             <span className="ks-buy-code">{p.code}</span>
             <span className={`ks-badge ${p.stok ? 'stok' : 'temin'}`}>{p.badge}</span>
+            {p.stok && p.stockQty ? (
+              <span className="ks-stock-qty">{p.stockQty} adet stokta</span>
+            ) : null}
           </div>
           <h1>{p.name}</h1>
           {r?.badges?.length ? (
@@ -92,11 +95,29 @@ export default function ProductDetail({ product }) {
                         <span className="ks-price-old">{money(p.price.list, p.price.cur)}</span>
                       ) : null}
                       <span className="ks-buy-price-new">{money(p.price.sale, p.price.cur)}</span>
+                      {p.price.kdv ? <span className="ks-price-kdv">+ KDV</span> : null}
                       {off ? <span className="ks-price-off">%{off} indirim</span> : null}
                     </div>
-                    <div className="ks-buy-price-note">
-                      Stoktan teslim — indirimli fiyat. KDV hariçtir; teklifle onaylanır.
-                    </div>
+                    {off ? (
+                      <div className="ks-buy-price-note">
+                        Stoktan teslim — indirimli fiyat. KDV hariçtir; teklifle onaylanır.
+                      </div>
+                    ) : null}
+                    {p.price.bulk ? (
+                      <div className="ks-bulk">
+                        <div className="ks-bulk-head">
+                          📞 Adetli alımlarda iskonto için arayın —{' '}
+                          <a href={`tel:${p.price.bulk.phone.replace(/\s/g, '')}`}>{p.price.bulk.phone}</a>
+                        </div>
+                        <div className="ks-bulk-tiers">
+                          {p.price.bulk.tiers.map((t) => (
+                            <span className="ks-bulk-tier" key={t[0]}>
+                              <b>{t[1]}</b> {t[0]}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
                   </>
                 );
               })()}
@@ -182,6 +203,26 @@ export default function ProductDetail({ product }) {
           </div>
         </div>
       )}
+
+      {r?.docs?.length ? (
+        <div className="ks-rich-wrap">
+          <h2 className="ks-specs-h">BELGELER</h2>
+          <div className="ks-docs">
+            {r.docs.map((doc) => (
+              <a key={doc.href} href={doc.href} className="ks-doc" target="_blank" rel="noreferrer">
+                <span className="ks-doc-ico" aria-hidden="true">📄</span>
+                <span>{doc.label}</span>
+                <span className="ks-doc-dl">PDF ↓</span>
+              </a>
+            ))}
+          </div>
+          {r.note ? <p className="ks-doc-note">{r.note}</p> : null}
+        </div>
+      ) : r?.note ? (
+        <div className="ks-rich-wrap">
+          <p className="ks-doc-note">{r.note}</p>
+        </div>
+      ) : null}
 
       {r?.system?.length ? (
         <div className="ks-rich-wrap">

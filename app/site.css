@@ -711,6 +711,29 @@
 .ks-buy-price-new { color: #0f8a3c; font-weight: 800; font-size: 28px; letter-spacing: -0.5px; }
 .ks-buy-price .ks-price-old { font-size: 16px; }
 .ks-buy-price-note { color: var(--muted-2); font-size: 12.5px; margin-top: 6px; }
+.ks-price-kdv { color: var(--muted-2); font-size: 13px; font-weight: 600; }
+.ks-stock-qty {
+  background: #e7f7ec; color: #0b7a34; font-size: 12px; font-weight: 700;
+  padding: 2px 8px; border-radius: 999px;
+}
+/* Adetli alım iskonto CTA (Climasum vb.) */
+.ks-bulk { margin-top: 12px; padding: 12px 14px; border: 1px dashed var(--amber); border-radius: 10px; background: #fffdf5; }
+.ks-bulk-head { font-weight: 700; color: var(--navy); font-size: 14.5px; }
+.ks-bulk-head a { color: var(--navy); text-decoration: underline; white-space: nowrap; }
+.ks-bulk-tiers { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.ks-bulk-tier { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; font-size: 12.5px; color: var(--muted-3); }
+.ks-bulk-tier b { color: #0b7a34; }
+/* Belge (PDF) indirme bağlantıları */
+.ks-docs { display: flex; flex-wrap: wrap; gap: 10px; }
+.ks-doc {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+  border: 1px solid var(--line); border-radius: 10px; background: #fff;
+  color: var(--navy); font-weight: 600; text-decoration: none;
+}
+.ks-doc:hover { border-color: var(--navy); }
+.ks-doc-ico { font-size: 18px; }
+.ks-doc-dl { color: var(--muted-2); font-weight: 700; font-size: 12.5px; }
+.ks-doc-note { color: var(--muted-2); font-size: 12.5px; margin-top: 10px; font-style: italic; }
 
 /* Zengin ürün sayfası bölümleri (APEX-EK vb.) */
 .ks-hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 12px; }
