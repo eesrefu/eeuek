@@ -734,6 +734,25 @@
 .ks-doc-ico { font-size: 18px; }
 .ks-doc-dl { color: var(--muted-2); font-weight: 700; font-size: 12.5px; }
 .ks-doc-note { color: var(--muted-2); font-size: 12.5px; margin-top: 10px; font-style: italic; }
+/* Kırmızı zorunlu uyarı kutusu (ör. TVN galvaniz) */
+.ks-warn {
+  display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px;
+  background: #fdecea; border: 1px solid #e5484d; border-left-width: 4px; border-radius: 10px;
+  color: #8a1c1c; font-weight: 600; font-size: 14.5px; line-height: 1.5;
+}
+.ks-warn-ico { font-size: 18px; flex: 0 0 auto; }
+/* Montaj şeması görseli */
+.ks-schema-img {
+  width: 100%; max-width: 760px; height: auto; display: block;
+  border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 12px;
+}
+/* Çapraz satış ipucu kutusu */
+.ks-crosssell {
+  display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px;
+  background: #f6f8fb; border-left: 3px solid var(--amber); border-radius: 8px;
+  color: var(--muted-3); font-size: 14px;
+}
+.ks-crosssell-ico { font-size: 16px; flex: 0 0 auto; }
 
 /* Zengin ürün sayfası bölümleri (APEX-EK vb.) */
 .ks-hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 12px; }
