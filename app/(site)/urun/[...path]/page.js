@@ -49,6 +49,7 @@ export default async function ProductPage({ params }) {
     parentCategory: parent ? { name: parent.name, href: caturl(parent.slug) } : null,
     badge: p.stok ? 'STOKTAN TESLİM' : 'TEMİN EDİLEBİLİR',
     stok: Boolean(p.stok),
+    stockQty: p.sq || 0,
     cond: p.cond,
     description: p.desc,
     img: p.img,
