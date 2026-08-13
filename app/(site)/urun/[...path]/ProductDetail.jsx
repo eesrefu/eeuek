@@ -173,6 +173,26 @@ export default function ProductDetail({ product }) {
         </div>
       </div>
 
+      {r?.warn ? (
+        <div className="ks-rich-wrap">
+          <div className="ks-warn" role="alert">
+            <span className="ks-warn-ico" aria-hidden="true">⚠️</span>
+            <span>{r.warn}</span>
+          </div>
+        </div>
+      ) : null}
+
+      {r?.features?.length ? (
+        <div className="ks-rich-wrap">
+          <h2 className="ks-specs-h">NEDEN BU ÜRÜN?</h2>
+          <ul className="ks-ticklist">
+            {r.features.map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
       {r?.highlights?.length ? (
         <div className="ks-rich-wrap">
           <h2 className="ks-specs-h">NEDEN BU CİHAZ?</h2>
@@ -203,6 +223,35 @@ export default function ProductDetail({ product }) {
           </div>
         </div>
       )}
+
+      {r?.schema ? (
+        <div className="ks-rich-wrap">
+          <h2 className="ks-specs-h">MONTAJ ŞEMASI</h2>
+          <img src={r.schema} alt={`${p.name} montaj şeması`} className="ks-schema-img" loading="lazy" />
+        </div>
+      ) : null}
+
+      {r?.related?.length ? (
+        <div className="ks-rich-wrap">
+          <h2 className="ks-specs-h">İLGİLİ ÜRÜNLER</h2>
+          <ul className="ks-linklist">
+            {r.related.map((rel) => (
+              <li key={rel.href}>
+                <Link href={rel.href}>{rel.label} →</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {r?.crosssell ? (
+        <div className="ks-rich-wrap">
+          <div className="ks-crosssell">
+            <span className="ks-crosssell-ico" aria-hidden="true">💡</span>
+            <span>{r.crosssell}</span>
+          </div>
+        </div>
+      ) : null}
 
       {r?.docs?.length ? (
         <div className="ks-rich-wrap">
